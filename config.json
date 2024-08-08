@@ -1,0 +1,44 @@
+{
+	"name": "Manage Default Survey Settings",
+	"description": "Enables functionality for customising certain default values when enabling a form as a new survey.",
+	"namespace": "MCRI\\CaptureAPITimestamp",
+	"authors": [
+		{
+			"name": "Luke Stevens",
+			"email": "luke.stevens@mcri.edu.au",
+			"institution": "Murdoch Children's Research Institute"
+		}
+	],
+    "framework-version": 14,
+    "enable-every-page-hooks-on-system-pages": false,
+	"system-settings": [ 
+        {
+            "key": "survey-Instructions",
+            "name": "Survey Instructions: edit your language file elements survey_154 and global_80",
+            "type": "descriptive"
+        },
+        {
+            "key": "survey_width_percent",
+            "name": "Width of survey on page",
+            "type": "dropdown",
+            "choices": [
+                { "value": "", "name": "Fixed width (default)" },
+                { "value": "50", "name": "50% width of page" },
+                { "value": "60", "name": "60% width of page" },
+                { "value": "70", "name": "70% width of page" },
+                { "value": "80", "name": "80% width of page" },
+                { "value": "90", "name": "90% width of page" },
+                { "value": "100", "name": "100% width of page" }
+            ]
+        },
+        {
+            "key": "enhanced_choices",
+            "name": "Enhanced choices",
+            "type": "dropdown",
+            "choices": [
+                { "value": "0", "name": "Standard radios and checkboxes" },
+                { "value": "1", "name": "Enhanced radios and checkboxes" }
+            ]
+        }
+    ]
+}
