@@ -174,6 +174,8 @@ class ManageSurveyDefaults extends AbstractExternalModule
      */
     public function manageGlobalThemesPage()
     {
+        global $lang;
+        if (!array_key_exists('econsent_02', $lang)) $lang['econsent_02']; // Active? (for pre v14.5)
         $tableId = 'themes';
         $this->initializeJavascriptModuleObject();
         ?>
