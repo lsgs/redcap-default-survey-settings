@@ -1,7 +1,7 @@
 {
 	"name": "Manage Default Survey Settings",
-	"description": "Enables functionality for customising certain default values when enabling a form as a new survey.",
-	"namespace": "MCRI\\CaptureAPITimestamp",
+	"description": "Add and edit new global survey themes and customise certain default options when enabling a form as a survey.<br><br>It is expected that this module be enabled on all projects to obtain the widest benefit from the abilty to specify alternative options as the default for new surveys, e.g. an institute-preferred font and branded theme.",
+	"namespace": "MCRI\\ManageSurveyDefaults",
 	"authors": [
 		{
 			"name": "Luke Stevens",
@@ -10,35 +10,145 @@
 		}
 	],
     "framework-version": 14,
-    "enable-every-page-hooks-on-system-pages": false,
-	"system-settings": [ 
+    "auth-ajax-actions": [ "get-all-themes", "get-theme", "save-theme" ],
+	"system-settings": [
         {
-            "key": "survey-Instructions",
-            "name": "Survey Instructions: edit your language file elements survey_154 and global_80",
+            "key": "default-settings",
+            "name": "<div class=\"blue font-weight-bold\" style=\"position:relative;left:-8px;width:733px\">Default Settings for New Surveys</div>",
+            "type": "descriptive"
+        },
+        {
+            "key": "section-1",
+            "name": "<div class=\"header\" style=\"position:relative;left:-8px;width:733px\">[[lang=survey_1011:Basic Settings]]</div>",
+            "type": "descriptive"
+        },
+        {
+            "key": "survey_instructions",
+            "name": "<strong>[[lang=survey_65:Survey Instructions]]</strong>: Set content for elements <code>survey_154</code> and <code>global_80</code> in your custom language file",
+            "type": "descriptive"
+        },
+        {
+            "key": "section-2",
+            "name": "<div class=\"header\" style=\"position:relative;left:-8px;width:733px\">[[lang=survey_291:Design Options]]</div>",
             "type": "descriptive"
         },
         {
             "key": "survey_width_percent",
-            "name": "Width of survey on page",
+            "name": "<strong>[[lang=survey_1475:Width of survey on page]]</strong>",
             "type": "dropdown",
             "choices": [
-                { "value": "", "name": "Fixed width (default)" },
-                { "value": "50", "name": "50% width of page" },
-                { "value": "60", "name": "60% width of page" },
-                { "value": "70", "name": "70% width of page" },
-                { "value": "80", "name": "80% width of page" },
-                { "value": "90", "name": "90% width of page" },
-                { "value": "100", "name": "100% width of page" }
+                { "value": "", "name": "[[lang=survey_1473:Fixed width (default)]]" },
+                { "value": "50", "name": "50% [[lang=survey_1474:width of page]]" },
+                { "value": "60", "name": "60% [[lang=survey_1474:width of page]]" },
+                { "value": "70", "name": "70% [[lang=survey_1474:width of page]]" },
+                { "value": "80", "name": "80% [[lang=survey_1474:width of page]]" },
+                { "value": "90", "name": "90% [[lang=survey_1474:width of page]]" },
+                { "value": "100", "name": "100% [[lang=survey_1474:width of page]]" }
             ]
         },
         {
             "key": "enhanced_choices",
-            "name": "Enhanced choices",
+            "name": "<strong>[[lang=survey_1072:Use enhanced radio buttons and checkboxes?]]</strong>",
             "type": "dropdown",
             "choices": [
-                { "value": "0", "name": "Standard radios and checkboxes" },
-                { "value": "1", "name": "Enhanced radios and checkboxes" }
+                { "value": "0", "name": "[[lang=survey_1073:Standard radios and checkboxes]]" },
+                { "value": "1", "name": "[[lang=survey_1074:Enhanced radios and checkboxes]]" }
             ]
+        },
+        {
+            "key": "text_size",
+            "name": "<strong>[[lang=survey_1012:Size of survey text]]</strong>",
+            "type": "dropdown",
+            "choices": [
+                { "value": "", "name": "[[lang=survey_1013:Normal]]" },
+                { "value": "1", "name": "[[lang=survey_1014:Large]]" },
+                { "value": "2", "name": "[[lang=survey_1015:Very large]]" }
+            ]
+        },
+        {
+            "key": "font_family",
+            "name": "<strong>[[lang=survey_1018:Font of survey text]]</strong>",
+            "type": "dropdown",
+            "choices": [ ]
+        },
+        {
+            "key": "theme",
+            "name": "<strong>[[lang=survey_1016:Survey theme]]</strong>",
+            "type": "dropdown",
+            "choices": [ ]
+        },
+        {
+            "key": "section-3",
+            "name": "<div class=\"header\" style=\"position:relative;left:-8px;width:733px\">[[lang=survey_647:Survey Customizations]]</div>",
+            "type": "descriptive"
+        },
+        {
+            "key": "question_auto_numbering",
+            "name": "<strong>[[lang=survey_51:Question Numbering]]</strong>",
+            "type": "dropdown",
+            "choices": [
+                { "value": "1", "name": "[[lang=survey_52:Auto numbered]]" },
+                { "value": "0", "name": "[[lang=survey_53:Custom numbered]]" }
+            ]
+        },
+        {
+            "key": "question_by_section",
+            "name": "<strong>[[lang=survey_1487:Pagination]]</strong>",
+            "type": "dropdown",
+            "choices": [
+                { "value": "0", "name": "[[lang=survey_1478:Single page]]" },
+                { "value": "1", "name": "[[lang=survey_1479:Multiple pages]]" }
+            ]
+        },
+        {
+            "key": "section-5",
+            "name": "<div class=\"header\" style=\"position:relative;left:-8px;width:733px\">[[lang=survey_290:Survey Termination Options]]</div>",
+            "type": "descriptive"
+        },
+        {
+            "key": "acknowledgement",
+            "name": "<strong>[[lang=survey_747:Survey Completion Text]]</strong>: Set content for elements <code>survey_155</code> and <code>survey_156</code> in your custom language file",
+            "type": "descriptive"
+        },
+        {
+            "key": "global-themes",
+            "name": "<div class=\"blue font-weight-bold\" style=\"position:relative;left:-8px;width:733px\">Global Theme Availability and Editability</div>",
+            "type": "descriptive"
+        },
+        {
+            "key": "manage_global_themes",
+            "name": "<div class=\"text-center\" style=\"position:relative;left:-8px;width:733px\"><a class=\"btn btn-sm btn-primaryrc\" style=\"color:#fff;\" target=\"_blank\" href=\"#\"><i class=\"fas fa-wrench mr-1\"></i>Manage Global Survey Themes<i class=\"fas fa-external-link-alt ml-1\"></i></a></div>",
+            "type": "descriptive"
+        },
+        {
+            "key": "manage-expectation",
+            "name": "<div class=\"text-muted text-center\" style=\"position:relative;left:-8px;width:733px\">Manual entry of the settings below is not expected.</div>",
+            "type": "descriptive"
+        },
+        {
+            "key": "section-available",
+            "name": "<span class=\"text-muted\">Hidden Global Themes</span>",
+            "type": "descriptive"
+        },
+        {
+            "key": "global-theme-hidden",
+            "name": "<span class=\"text-muted\">ID of global theme to be omitted from Survey Theme dropdown</span>",
+            "required": false,
+            "type": "text",
+            "repeatable": true
+        },
+        {
+            "key": "section-editable",
+            "name": "<span class=\"text-muted\">Editable Global Themes</span>",
+            "type": "descriptive"
+        },
+        {
+            "key": "global-theme-editable",
+            "name": "<span class=\"text-muted\">ID of global theme that is editable</span>",
+            "required": false,
+            "type": "text",
+            "repeatable": true
         }
-    ]
+    ],
+    "project-settings": [ ]
 }
